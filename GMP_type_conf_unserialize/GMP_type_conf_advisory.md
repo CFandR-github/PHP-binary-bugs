@@ -95,8 +95,7 @@ See what function zend\_std\_get\_properties does.
 
 Z\_OBJ\_HANDLE\_P(zval\_p) returns zval\_p.value.obj.handle it is an object handle taken from zval structure. Z\_OBJ\_P macro takes a object handle number, and returns property hashtable of object with the given handle number. zend\_hash\_copy copies props of GMP object into this hashtable.
 GMP handle number is fully controlled from exploit. Using this bug an attacker can rewrite props of any object in PHP script.\
-GMP handle is overwritten with 0x1.\
-In the POC script, *stdClass* object created before unserialize call has handle = 0x1. Properties of this object are overwritten, see it in GDB.
+GMP handle is overwritten with 0x1. In the POC script, *stdClass* object created before unserialize call has handle = 0x1. Properties of this object are overwritten, see it in GDB.
 
 ![](./images/gmp_type_conf_html_ba791a6b19815137.png)
 
