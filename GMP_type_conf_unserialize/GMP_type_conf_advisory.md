@@ -37,23 +37,23 @@ Class *obj2* has unserialize method with another unserialize function call in it
 
 ![](./images/gmp_type_conf_html_d0543afac0dcd60c.png)
 
-Set two breakpoints in gdb. First, when GMP object is created.
+Set two breakpoints in gdb. First, when GMP object is created.\
 gdb-peda$ b gmp.c:640
 
 ![](./images/gmp_type_conf_html_6ad048eec7b2057f.png)
 
-Another breakpoint, where type confusion bug happens.
+Another breakpoint, where type confusion bug happens.\
 gdb-peda$ b gmp.c:661
 
 ![](./images/gmp_type_conf_html_e4a58805756091b1.png)
 
-Rub gdb, unserialization of GMP object properties starts.
+Rub gdb, unserialization of GMP object properties starts.\
 Stop on line 640 and print object zval. It is GMP object with handle = 0x2
 
 ![](./images/gmp_type_conf_html_57ecb71f480ddf12.png)
 
-Set breakpoint on unserialize call.
-gdb-peda$ b var.c:967
+Set breakpoint on unserialize call.\
+gdb-peda$ b var.c:967\
 Continue execution.
 
 Execution reaches second unserialize function call, located in unserialize method of obj2 class.
@@ -95,8 +95,8 @@ Z\_OBJ\_HANDLE\_P(zval\_p) Z\_OBJ\_HANDLE(\*zval\_p)\
 \#define Z\_OBJVAL(zval) (zval).value.obj
 
 Z\_OBJ\_HANDLE\_P(zval\_p) returns zval\_p.value.obj.handle it is an object handle taken from GMP zval structure. Z\_OBJ\_P macro takes a object handle number, and returns property hashtable of object with the given handle number. zend\_hash\_copy copies props of GMP object into this hashtable.
-Handle number is fully controlled from exploit. Using this bug an attacker can rewrite props of any object in PHP script.
-GMP handle is overwritten with 0x1. In the POC script, *stdClass* <span style="font-style: normal">object created before unserialize call has handle = 0x1. Properties of this object are overwritten, see it in GDB.</span>
+Handle number is fully controlled from exploit. Using this bug an attacker can rewrite props of any object in PHP script.\
+GMP handle is overwritten with 0x1. In the POC script, *stdClass* object created before unserialize call has handle = 0x1. Properties of this object are overwritten, see it in GDB.
 
 ![](./images/gmp_type_conf_html_ba791a6b19815137.png)
 
