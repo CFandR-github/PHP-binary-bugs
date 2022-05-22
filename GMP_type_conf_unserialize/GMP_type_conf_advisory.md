@@ -82,8 +82,7 @@ See what happened with GMP zval.
 
 ![](./images/gmp_type_conf_html_2f77c8e6b87a72bf.png)
 
-Handle of GMP zval is equal to <span lang="en-US">$this→foo, it is 0x1.</span>
-
+Handle of GMP zval is equal to $this→foo, it is 0x1.
 See what function zend\_std\_get\_properties does.
 
 ![](./images/gmp_type_conf_html_8f366306486ad4f2.png)
@@ -96,7 +95,8 @@ See what function zend\_std\_get\_properties does.
 
 Z\_OBJ\_HANDLE\_P(zval\_p) returns zval\_p.value.obj.handle it is an object handle taken from zval structure. Z\_OBJ\_P macro takes a object handle number, and returns property hashtable of object with the given handle number. zend\_hash\_copy copies props of GMP object into this hashtable.
 GMP handle number is fully controlled from exploit. Using this bug an attacker can rewrite props of any object in PHP script.\
-GMP handle is overwritten with 0x1. In the POC script, *stdClass* object created before unserialize call has handle = 0x1. Properties of this object are overwritten, see it in GDB.
+GMP handle is overwritten with 0x1.\
+In the POC script, *stdClass* object created before unserialize call has handle = 0x1. Properties of this object are overwritten, see it in GDB.
 
 ![](./images/gmp_type_conf_html_ba791a6b19815137.png)
 
@@ -105,8 +105,6 @@ Usage of $this→prop=true is demonstrated in another advisory.
 
 References:
 
-\[1\] <font color="#000080"><span lang="zxx"><u><https://bugs.php.net/bug.php?id=70513></u></span></font>
-
-\[2\] <font color="#000080"><span lang="zxx"><u>[https://www.phpinternalsbook.com/php5/zvals/basic\_structure.html](https://www.phpinternalsbook.com/php5/zvals/basic_structure.html)</u></span></font>
-
+\[1\] <font color="#000080"><span lang="zxx"><u><https://bugs.php.net/bug.php?id=70513></u></span></font>\
+\[2\] <font color="#000080"><span lang="zxx"><u>[https://www.phpinternalsbook.com/php5/zvals/basic\_structure.html](https://www.phpinternalsbook.com/php5/zvals/basic_structure.html)</u></span></font>\
 \[3\] <font color="#000080"><span lang="zxx"><u><https://www.php.net/manual/en/class.serializable></u></span></font>
