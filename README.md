@@ -6,6 +6,6 @@ Collection of PHP binary bugs advisory
 
 Idea: bypass delayed \_\_wakeup and exploit unfixed GMP type confusion bug in PHP <= 5.6.40
 
-POC source: <todo>
+POC source: [GMP_type_conf_POC.php](./GMP_type_conf_unserialize/GMP_type_conf_POC.php)
 
-Advisory
+[Advisory](./GMP_type_conf_unserialize/GMP_type_conf_advisory.md)
