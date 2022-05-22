@@ -1,7 +1,9 @@
-## Unfixed GMP Type Confusion
+# Unfixed GMP Type Confusion
 
 Requirements: PHP &lt;= 5.6.40\
 Compiled with: '--with-gmp'
+
+## Bug summary
 
 Original GMP Type confusion bug was found by taoguangchen researcher and reported \[1\].
 The idea of exploit is to change zval structure \[2\] of GMP object during deserialization process.
@@ -25,7 +27,7 @@ But there is another way to execute code in the middle of deserialization in PHP
 </pre>
 If $data is invalid serialization string (bad format), unserialize($data) call will not throw any fatal error. Deserialization process will continue after unserializing custom-serialized object. This can be used to trigger \_\_destruct method using unclosed brace in serialized $data string. Code of \_\_destruct method will be executed in the middle of unserialization process! In code of \_\_destruct method there is a big chance to find code lines that rewrite zval. The only restriction for this trick is to find a class in web-application code that implements Serializable interface.
 
-### POC debug
+## POC debug
 
 Let us run [bug POC](./GMP_type_conf_POC.php) and understand how it works.
 
@@ -64,7 +66,7 @@ Because of invalid serialization string (it has “A” char instead of closing 
 
 ![](./images/gmp_type_conf_html_2e481d6c5646c62e.png)
 
-Output return\_value using printzv macros. It is object of *<span style="font-weight: normal">obj1</span>*class with unserialized properties.
+Output return\_value using printzv macros. It is object of *obj1* class with unserialized properties.
 
 ![](./images/gmp_type_conf_html_69633d182ced5abf.png)
 
@@ -99,8 +101,8 @@ GMP handle is overwritten with 0x1. In the POC script, *stdClass* object created
 
 ![](./images/gmp_type_conf_html_ba791a6b19815137.png)
 
-To write 0x1 into handle id, sometimes no need to use integer zval, attacker can use boolean type. PHP boolean type is represented in memory as 0 or 1 integer. Code lines like $this→prop = true are more common in real code than property assignment demonstrated previously.
-Usage of $this→prop=true is demonstrated in another advisory.
+To write 0x1 into handle id, sometimes no need to use integer zval, attacker can use boolean type. PHP boolean type is represented in memory as 0 or 1 integer. Code lines like $this→prop = true are more common in real code than property assignment demonstrated previously.\
+Usage of this bug in the real-world CMS / frameworks demonstrated in another advisory.
 
 References:
 
