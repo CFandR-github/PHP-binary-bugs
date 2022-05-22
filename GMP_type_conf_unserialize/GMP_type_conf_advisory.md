@@ -25,7 +25,7 @@ But there is another way to execute code in the middle of deserialization in PHP
 </pre>
 If $data is invalid serialization string (bad format), unserialize($data) call will not throw any fatal error. Deserialization process will continue after unserializing custom-serialized object. This can be used to trigger \_\_destruct method using unclosed brace in serialized $data string. Code of \_\_destruct method will be executed in the middle of unserialization process! In code of \_\_destruct method there is a big chance to find code lines that rewrite zval. The only restriction for this trick is to find a class in web-application code that implements Serializable interface.
 
-**POC debug**
+### POC debug
 
 Let us run [bug POC](./GMP_type_conf_POC.php) and understand how it works.
 
