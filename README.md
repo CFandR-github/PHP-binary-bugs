@@ -1,7 +1,6 @@
 # Advisory of Exploits AI POP Builder
 
 Collection of PHP binary bugs advisory
-
 ### Unfixed GMP Type confusion in unserialize
 
 Idea: bypass delayed \_\_wakeup and exploit unfixed GMP type confusion bug in PHP <= 5.6.40
@@ -9,3 +8,7 @@ Idea: bypass delayed \_\_wakeup and exploit unfixed GMP type confusion bug in PH
 POC source: [GMP_type_conf_POC.php](./GMP_type_conf_unserialize/GMP_type_conf_POC.php)
 
 [Advisory](./GMP_type_conf_unserialize/GMP_type_conf_advisory.md)
+
+# Contacts
+Project channel in Telegram:
+- [https://t.me/CFandR_project](https://t.me/CFandR_project)
